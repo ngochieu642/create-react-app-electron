@@ -6,12 +6,8 @@ services:
       context: .
       dockerfile: Classic.Dockerfile
     container_name: react_demo_classic
-    # environment:
-    #   DISPLAY: $DISPLAY
     networks:
       - dev-network
-    # volumes:
-    #   - /tmp/.X11-unix:/tmp/.X11-unix
     ports:
       - "1337:80"
     logging:
@@ -19,7 +15,6 @@ services:
       options:
         max-file: "5"
         max-size: "10m"
-    # command: "tail -f /dev/null"
 
   react_electron:
     build:
@@ -32,6 +27,9 @@ services:
       - dev-network
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${PWD}:/app
+    ports:
+      - "3003:3000"
     logging:
       driver: "json-file"
       options:
