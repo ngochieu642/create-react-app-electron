@@ -23,6 +23,7 @@ services:
     container_name: react_demo_electron
     environment:
       DISPLAY: $DISPLAY
+      QT_X11_NO_MITSHM: 1 # https://github.com/electron/electron/issues/22775
     networks:
       - dev-network
     volumes:
