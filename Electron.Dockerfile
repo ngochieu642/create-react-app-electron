@@ -14,10 +14,12 @@ COPY . ./
 RUN npm run build
 
 # production environment
-RUN useradd --create-home appuser
+# RUN useradd --create-home appuser
 # WORKDIR /home/appuser
 
 # COPY --from=build /app/build /home/appuser/build
 # COPY --from=build /app/node_modules /home/appuser/node_modules
 
 # USER appuser
+
+ENTRYPOINT ["./node_modules/.bin/electron", ".", "--no-sandbox" ]

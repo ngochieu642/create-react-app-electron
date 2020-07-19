@@ -36,7 +36,7 @@ services:
       options:
         max-file: "5"
         max-size: "10m"
-    command: "tail -f /dev/null"
+    # entrypoint: "tail -f /dev/null"
 
 networks:
   dev-network:
