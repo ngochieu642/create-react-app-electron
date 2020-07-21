@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  react_classic:
+    build:
+      context: .
+      dockerfile: Classic.Dockerfile
+    container_name: react_demo_classic
+    networks:
+      - dev-network
+    ports:
+      - "1337:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+  react_electron:
+    build:
+      context: .
+      dockerfile: Electron.Dockerfile
+    container_name: react_demo_electron
+    environment:
+      DISPLAY: $DISPLAY
+      QT_X11_NO_MITSHM: 1 # https://github.com/electron/electron/issues/22775
+    networks:
+      - dev-network
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${PWD}:/app
+    ports:
+      - "3003:3000"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+    # entrypoint: "tail -f /dev/null"
+
+networks:
+  dev-network:
+    driver: bridge
+    external:
+      name: fcs_network
